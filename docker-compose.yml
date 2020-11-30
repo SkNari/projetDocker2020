@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+  back:
+    build: ./back
+    container_name: back
+    command: npm start
+    ports:
+      - "8000:8000"
+    restart: always
+    networks:
+      - lemon
+  front:
+    build: ./front
+    container_name: front
+    command: ng serve --host 0.0.0.0 --disable-host-check
+    ports:
+      - "4200:4200"
+    restart: always
+    networks:
+      - lemon
+  mongo:
+    image: mongo
+    container_name: mongo
+    volumes:
+      - ./mongoDB/init.js:/docker-entrypoint-initdb.d/init.js:ro
+      - mongo-volume:/data/db'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    ports:
+      - '27017-27019:27017-27019'
+    restart: always
+    networks: 
+      - lemon
+
+networks:
+  lemon:
+    driver: bridge
+
+volumes:
+  mongo-volume:
