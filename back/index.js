@@ -1,9 +1,13 @@
 const express = require('express');
 const account = require("./account");
+const cors = require("cors");
 
 const app = express();
 const mongo = new account.Account();
 const port = 8000;
+
+app.use(cors());
+app.use(express.json());
 
 app.get('/', async function (req, res) {
     res.send('Hello World');
@@ -26,7 +30,11 @@ app.post('/register',async function(req,res) {
 
         res.status(201).json(JSON.stringify("Account created"));
 
-    });
+    }).catch( error => {
+
+        res.status(500).json(JSON.stringify("Server error"));
+
+    })
 
 
 })
@@ -50,8 +58,31 @@ app.post('/login',async function(req,res) {
             token: token
         });
 
+    }).catch( error => {
+
+        res.status(500).json(JSON.stringify("Server error"));
+
     });
 
+
+})
+
+app.post("/auth",function(req,res){
+
+    var token = req.body.token;
+    if(!token){
+        res.status(400).json(JSON.stringify("Data not valid"));
+    }
+
+    mongo.auth(token).then( answer => {
+
+        res.status(200).json({correct:answer});
+
+    }).catch( error => {
+
+        res.status(500).json(JSON.stringify("Server error"));
+
+    })
 
 })
 

@@ -1,7 +1,7 @@
 const mongoClient = require('mongodb').MongoClient;
 const config = require("./config.json");
 const md5 = require('md5');
-const jws = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 class Account{
 
@@ -17,15 +17,15 @@ class Account{
         try{
             var db = this.mongo.db("docker");
             var user = db.collection("user");
-            var res = await user.findOne({name:login,password:mp5(password)});
+            var res = await user.findOne({name:login,password:md5(password)});
 
             if(!res){
                 return -1
             }
 
             var token = jwt.sign({name:login},config.privateKey,{expiresIn: "1h"});
-
             return token;
+
         } catch(err){
             console.log(err.stack);
         }
