@@ -23,8 +23,8 @@ class Account{
                 return -1
             }
 
-            var token = jwt.sign({name:login},config.privateKey,{expiresIn: "1h"});
-            return token;
+            var token = jwt.sign({name:login},config.privateKey,{expiresIn: "1m"});
+            return token;0
 
         } catch(err){
             console.log(err.stack);
@@ -35,7 +35,8 @@ class Account{
     async register(login,password){
         
         try{
-            if(this.isSignedUp(loging)){
+            var signedUp = await this.isSignedUp(login);
+            if(signedUp){
                 return -1;
             }
             var db = this.mongo.db("docker");
@@ -43,8 +44,7 @@ class Account{
             await user.insertOne({name: login,password: md5(password)});
             return 1;
         } catch(err){  
-            console.log(err.stack);
-            return -1;
+            return -2;
         }
 
     }
@@ -57,7 +57,18 @@ class Account{
             var res = await user.findOne({name:login});
             return res!=null;
         }catch(err){
-            console.log(err.stack);
+            console.log(err);
+        }
+
+    }
+
+    async auth(token){
+
+        try{
+            var decoded = await jwt.verify(token,config.privateKey);
+            return decoded;
+        }catch(err){
+            return false;
         }
 
     }

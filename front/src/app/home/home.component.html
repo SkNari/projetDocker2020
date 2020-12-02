@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="col-md-12">
+        <div *ngFor="let message of messages">
+        <h1>{{ message.name }}</h1>
+        <p>{{ message.text }}</p>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-info" type="button" (click)="goToPost()">Add a post</button>
+<button class="btn btn-info" type="button" (click)="disconnect()">Disconnect</button>

@@ -1,21 +1,23 @@
-<h3>Login</h3>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+    <!-- Icon -->
+    <div class="fadeIn first">
+      Login
+    </div>
 
-  <div>
-    <label for="name">
-      Name
-    </label>
-    <input id="name" type="text" formControlName="name">
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" formControlName="name">
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" formControlName="password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="./register">Don't have an account? Register</a>
+    </div>
+
   </div>
-
-  <div>
-    <label for="password">
-      Password
-    </label>
-    <input id="password" type="password" formControlName="password">
-  </div>
-
-  <button class="button" type="submit">Login</button>
-
-</form>
+</div>

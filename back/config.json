@@ -3,5 +3,8 @@
         "url": "mongodb://admin:admin@mongo:27017",
         "dbName": "docker"
     },
-    "privateKey": "toto"
+    "privateKey": "toto",
+    "redis":{
+        "url": "redis://redis:6379"
+    }
 }

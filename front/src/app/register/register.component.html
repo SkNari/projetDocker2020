@@ -1,1 +1,17 @@
-<p>register works!</p>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      Register
+    </div>
+    <!-- Login Form -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" formControlName="name">
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" formControlName="password">
+      <input type="submit" class="fadeIn fourth" value="Register">
+    </form>
+  </div>
+</div>

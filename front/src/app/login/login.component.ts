@@ -1,6 +1,8 @@
 import { Component, OnInit, ɵɵresolveBody } from '@angular/core';
 import { FormBuilder, Form } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   loginForm : any;
 
-  constructor(private formBuilder: FormBuilder,private http : HttpClient) {
+  constructor(private router : Router,private formBuilder: FormBuilder,private http : HttpClient,private authService : AuthService) {
 
     this.loginForm = this.formBuilder.group({
       name: '',
@@ -32,16 +34,14 @@ export class LoginComponent implements OnInit {
       password : loginData.password
     }
 
-    console.log(body);
-
     var options = {
-      headers: { }
+      headers: {}
     }
 
     this.http.post<any>('http://localhost:8000/login', body, options).subscribe(
       data => {
-        console.log(data)
-        sessionStorage.setItem('token', data.token);
+        this.authService.setToken(data.token);
+        this.router.navigate([""]);
       },
       error => {
         console.log(error);
