@@ -5,8 +5,8 @@ Simple project. You can register, login and post message.
 ## Set up
 
 ```bash
-git clone https://github.com/SamirPS/DockerProject.git
-cd DockerProject
+git clone https://github.com/SkNari/projetDocker2020.git
+cd projetDocker2020
 docker-compose up
 ```
 
