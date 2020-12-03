@@ -7,7 +7,7 @@ Simple project. You can register, login and post message.
 ```bash
 git clone https://github.com/SkNari/projetDocker2020.git
 cd projetDocker2020
-docker-compose up
+docker-compose up --build
 ```
 
 now go  http://localhost:4200.
